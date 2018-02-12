@@ -1,21 +1,19 @@
 # Start with Ubuntu base image
 FROM amazonlinux
-
-# Install build-essential, git, wget, python-dev, pip, BLAS + LAPACK and other dependencies
-RUN apt-get update && apt-get install -y \
-  build-essential \
-  gfortran \
+  
+RUN yum install -y gcc gcc-c++ make openssl-devel \
+  gcc-gfortran \
   git \
   wget \
-  liblapack-dev \
-  libopenblas-dev \
-  python-dev \
-  python-pip \
-  python-nose \
-  python-numpy \
-  python-scipy
-
-# Install bleeding-edge Theano
-RUN pip install --upgrade pip
-RUN pip install --upgrade six
-RUN pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git
+  atlas atlas-devel lapack-devel \
+  blas-devel \
+  python27-devel \
+  python27-pip \
+  python27-nose \
+  python27-numpy \
+  python27-scipy \
+  && pip-2.7 install --upgrade pip \
+  && python --version \
+  && pip --version \
+  && pip install --upgrade six \
+  && pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git
